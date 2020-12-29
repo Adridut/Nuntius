@@ -15,9 +15,13 @@ io = socket(server);
 io.on('connection', (socket) => {
     console.log(socket.id);
 
-    socket.on("join_room", (data) => {
-        socket.join(data);
-        console.log('User joined room: ' + data);
+    socket.on("join_room", (room) => {
+        socket.join(room);
+        console.log('User joined room: ' + room);
+    });
+
+    socket.on("send_message", (messageInfo) => {
+        socket.to(messageInfo.room).emit("receive_message", messageInfo.content)
     });
 
     socket.on('disconnect', () => {
