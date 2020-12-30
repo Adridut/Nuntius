@@ -10,13 +10,19 @@ function Login(this: any) {
     const [userName, setUserName] = useState('');
 
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([{ author: "Adri", message: "Hey!" }]);
+    const [messages, setMessages] = useState([{ author: "", message: "" }]);
 
 
 
     useEffect(() => {
         socket = io(CONNECTION_PORT);
-    }, [CONNECTION_PORT])
+    }, [CONNECTION_PORT]);
+
+    useEffect(() => {
+        socket.on("receive_message", (content: any) => {
+            setMessages([...messages, content])
+        });
+    });
 
     const connectToRoom = () => {
         setLoggedIn(true);
