@@ -13,7 +13,7 @@ const server = app.listen("3001", () => {
 io = socket(server);
 
 io.on('connection', (socket) => {
-    console.log(socket.id);
+    console.log("User connected with id: " + socket.id);
 
     socket.on("join_room", (room) => {
         socket.join(room);
