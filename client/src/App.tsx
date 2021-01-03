@@ -1,15 +1,15 @@
 // import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import DrawPage from './Components/MainPage/DrawPage';
 import Login from './Components/Login';
+import Header from './Components/Header'
 
 
 function App() {
 
   return (
     <div className="App">
-      <h1 className="tw-text-red-300">Telestration</h1>
+      <Header></Header>
       <Login></Login>
     </div>
   );
