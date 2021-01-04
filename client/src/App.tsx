@@ -1,7 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
 import React from 'react';
-import Login from './Components/Login';
 import Header from './Components/Header'
 import MainMenu from './Components/MainMenu'
 require('react-paper-css');
