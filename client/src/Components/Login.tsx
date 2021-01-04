@@ -47,7 +47,9 @@ function Login(this: any) {
             {!loggedIn ? (<div>
                 <input type="text" placeholder="Name..." onChange={(e) => setUserName(e.target.value)} />
                 <input type="text" placeholder="Room id..." onChange={(e) => setRoom(e.target.value)} />
-                <button onClick={connectToRoom}>Enter Room</button>
+                <p>
+                <button className="hover:tw-bg-purple-700 hover:tw-text-white" onClick={connectToRoom}>Enter Room</button>
+                </p>
             </div>) :
                 (<div>
                     <div>

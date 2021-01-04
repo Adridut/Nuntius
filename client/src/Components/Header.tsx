@@ -1,10 +1,13 @@
 import React from 'react'
-require('react-paper-css');
 
 
 function Header() {
     return (
-        <div className="tw-text-red-300 border border-primary">OKKKK</div>
+        <div className="tw-bg-black tw-h-10 border shadow tw-flex tw-justify-center tw-items-center">
+            <div className="tw-text-blue-500">Tele</div>
+            <div className="tw-text-green-500">stra</div>
+            <div className="tw-text-red-500">tion</div>
+        </div>
     )
 }
 
