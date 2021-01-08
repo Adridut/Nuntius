@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { io } from 'socket.io-client'
 
 let socket: any;
@@ -43,14 +43,19 @@ function Login(this: any) {
     }
 
     return (
-        <div>
-            {!loggedIn ? (<div>
-                <input type="text" placeholder="Name..." onChange={(e) => setUserName(e.target.value)} />
-                <input type="text" placeholder="Room id..." onChange={(e) => setRoom(e.target.value)} />
-                <p>
-                <button className="hover:tw-bg-purple-700 hover:tw-text-white" onClick={connectToRoom}>Enter Room</button>
-                </p>
-            </div>) :
+        <div className="tw-h-5/6">
+            {!loggedIn ? (
+                <div className="tw-flex tw-items-center tw-justify-center tw-h-full">
+                    <div className="border shadow tw-w-1/3 tw-flex tw-items-center tw-justify-center">
+                        <div>
+                            <div className="tw-flex tw-m-4 tw-mt-8">
+                                <input className="focus:tw-border-blue-500 tw-mr-2" type="text" placeholder="Name..." onChange={(e) => setUserName(e.target.value)} />
+                                <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Room..." onChange={(e) => setRoom(e.target.value)} />
+                            </div>
+                            <button className="tw-border-green-500 tw-text-green-500 hover:tw-bg-green-500 hover:tw-text-white tw-m-4 tw-mb-8" onClick={connectToRoom}>Join Room</button>
+                        </div>
+                    </div>
+                </div>) :
                 (<div>
                     <div>
                         {messages.map((value, key) => {
