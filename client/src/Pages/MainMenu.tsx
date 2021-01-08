@@ -5,27 +5,25 @@ import Modal from '../Components/Modal'
 
 function MainMenu() {
     const [showRules, setShowRules] = useState(false);
-    const [showModal, setShowModal] = useState(false);
-
+    const [showAbout, setShowAbout] = useState(false);
 
     const displayRules = () => {
         setShowRules(true);
-        displayModal();
     }
 
     const displayAbout = () => {
-        setShowRules(false);
-        displayModal();
+        setShowAbout(true);
     }
 
-    const displayModal = () => {
-        setShowModal(!showModal)
+    const closeModal = () => {
+        setShowRules(false);
+        setShowAbout(false);
     }
 
 
 
     return (<div className="tw-h-5/6 tw-flex tw-justify-center tw-items-center">
-        {!showModal ? (<div className="tw-flex tw-items-center">
+        <div className="tw-flex tw-items-center">
             <div>
                 <button onClick={displayRules} className="tw-text-blue-500 tw-border-blue-500 hover:tw-bg-blue-500 hover:tw-text-white focus:tw-outline-none">Rules</button>
             </div>
@@ -37,7 +35,8 @@ function MainMenu() {
             <div>
                 <button onClick={displayAbout} className="tw-text-red-500 tw-border-red-500 hover:tw-bg-red-500 hover:tw-text-white focus:tw-outline-none">About</button>
             </div>
-        </div>) : (<Modal title="Rules" content="fef" displayModal={displayModal}></Modal>)}
+        </div>
+        {(showRules || showAbout) && <Modal title={showRules ? "Rules" : "About"} content={showRules ? "Some rules..." : "Made with ❤️ by Adrien Dutfoy"} displayModal={closeModal}></Modal>}
     </div>)
 
 }
