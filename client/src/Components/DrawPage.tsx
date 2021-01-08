@@ -1,5 +1,5 @@
 import React from 'react';
-import DrawPanel from '../DrawPanel/DrawPanel';
+import DrawPanel from './DrawPanel';
 
 
 

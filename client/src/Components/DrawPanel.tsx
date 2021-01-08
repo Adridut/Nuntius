@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Context } from 'vm';
 import { CirclePicker } from 'react-color';
-import EraserIcon from '../Icons/EraserIcon'
+import EraserIcon from './Icons/EraserIcon'
 
 
 
