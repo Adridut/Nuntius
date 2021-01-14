@@ -1,5 +1,4 @@
 
-import '../App.css';
 
 
 function Modal({title, content, displayModal}: any) {
