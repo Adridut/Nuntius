@@ -1,5 +1,7 @@
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'react'
+import DrawPanel from '../Components/DrawPanel'
+
 
 
 let socket: any;
@@ -10,13 +12,18 @@ const CONNECTION_PORT = 'localhost:3001/'
 
 function Room(props: any) {
 
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([{ author: "", message: "" }]);
-    const [users, setUsers]: any = useState([]);
+    const GAME_MODE_WRITE = "GAME_MODE_WRITE";
+    const GAME_MODE_DRAW = "GAME_MODE_DRAW";
+    const GAME_MODE_GUESS = "GAME_MODE_GUESS";
+
+    // const [message, setMessage] = useState('');
+    // const [messages, setMessages] = useState([{ author: "", message: "" }]);
+    const [users, setUsers] = useState([]);
+    const [gameMode, setGameMode] = useState(GAME_MODE_WRITE)
+    const [phrase, setPhrase] = useState("");
 
     const userName = props.location.state.userName;
-    const room = props.location.state.room;
-
+    const room = props.location.search.split("?id=")[1];
 
     useEffect(() => {
         socket = io(CONNECTION_PORT);
@@ -24,41 +31,69 @@ function Room(props: any) {
     }, [CONNECTION_PORT]);
 
     useEffect(() => {
-        socket.on("receive_message", (content: any) => {
-            setMessages([...messages, content])
+        socket.on('roomUsers', ({ room, users }: any) => {
+            setUsers(users);
         });
     });
 
-    useEffect(() => {
-        socket.on('roomUsers', ({ room, users }: any) => {
-            setUsers(users);
-          });
-    });
-
-    const sendMessage = () => {
-        let messageInfo = {
-            room: room,
-            content: {
-                author: userName,
-                message: message,
-            }
+    const checkGameMode = (mode: string) => {
+        if (gameMode == mode) {
+            return true;
+        } else {
+            return false;
         }
-
-        socket.emit("send_message", messageInfo)
-        setMessages([...messages, messageInfo.content])
     }
+
+    const startGame = () => {
+        setGameMode(GAME_MODE_DRAW);
+    }
+
+    // useEffect(() => {
+    //     socket.on("receive_message", (content: any) => {
+    //         setMessages([...messages, content])
+    //     });
+    // });
+
+    // const sendMessage = () => {
+    //     let messageInfo = {
+    //         room: room,
+    //         content: {
+    //             author: userName,
+    //             message: message,
+    //         }
+    //     }
+
+    //     socket.emit("send_message", messageInfo)
+    //     setMessages([...messages, messageInfo.content])
+    // }
 
 
     return (
         <div>
-            {/* <div>{room}</div>
-            <div>{userName}</div> */}
-            <div>
-                {users.map((user: any, key: any) => {
-                    return <div>{user.username}</div>
-                })}
-            </div>
-            <div>
+            <h4>{room}</h4>
+            {checkGameMode(GAME_MODE_WRITE) &&
+                <div>
+                    <div>
+                        {users.map((user: any, key: any) => {
+                            return <div>{user.username}</div>
+                        })}
+                    </div>
+                    <button onClick={startGame}
+                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none">
+                        Start</button>
+                </div>
+            }
+            {checkGameMode(GAME_MODE_DRAW) &&
+                <div>
+                    <DrawPanel></DrawPanel>
+                </div>
+            }
+            {checkGameMode(GAME_MODE_GUESS) &&
+                <div>
+                    <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Sentence you want your friends to guess..." onChange={(e) => setPhrase(e.target.value)} />
+                </div>
+            }
+            {/* <div>
                 {messages.map((value, key) => {
                     return <div>{value.author} {value.message}</div>
                 })}
@@ -66,7 +101,7 @@ function Room(props: any) {
             <div>
                 <input type="text" placeholder="Message" onChange={(e) => setMessage(e.target.value)}></input>
                 <button onClick={sendMessage}>Send</button>
-            </div>
+            </div> */}
         </div>
     )
 

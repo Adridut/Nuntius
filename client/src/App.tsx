@@ -19,7 +19,7 @@ function App() {
         <Header></Header>
         <Switch>
           <Route path="/login" component={Login}></Route>
-          <Route path="/room/" component={Room}></Route>
+          <Route path="/room" component={Room}></Route>
           <Route path="/" component={MainMenu}></Route>
         </Switch>
       </div>
