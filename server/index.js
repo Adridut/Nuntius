@@ -8,6 +8,10 @@ const {
     userLeave,
     getRoomUsers
 } = require('./users');
+const {
+    startGame,
+    changeGameMode,
+} = require('./games');
 
 app.use(cors());
 app.use(express.json())
@@ -30,6 +34,12 @@ io.on('connection', (socket) => {
             room: user.room,
             users: getRoomUsers(user.room)
         });
+    });
+
+    socket.on("start_game", (room, mode) => {
+        const game = startGame(room, mode);
+        console.log("Game started with mode: " +game.mode);
+        io.to(room).emit("send_game_mode", game.mode);
     });
 
     socket.on("send_message", (messageInfo) => {

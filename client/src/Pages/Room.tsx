@@ -15,11 +15,15 @@ function Room(props: any) {
     const GAME_MODE_WRITE = "GAME_MODE_WRITE";
     const GAME_MODE_DRAW = "GAME_MODE_DRAW";
     const GAME_MODE_GUESS = "GAME_MODE_GUESS";
+    const GAME_MODE_LOBBY = "GAME_MODE_LOBBY";
+    const GAME_MODE_DONE = "GAME_MODE_DONE";
+
 
     // const [message, setMessage] = useState('');
     // const [messages, setMessages] = useState([{ author: "", message: "" }]);
     const [users, setUsers] = useState([]);
-    const [gameMode, setGameMode] = useState(GAME_MODE_WRITE)
+    const [gameMode, setGameMode] = useState(GAME_MODE_LOBBY)
+    const [guess, setGuess] = useState("");
     const [phrase, setPhrase] = useState("");
 
     const userName = props.location.state.userName;
@@ -36,6 +40,13 @@ function Room(props: any) {
         });
     });
 
+    useEffect(() => {
+        socket.on('send_game_mode', (mode: any) => {
+            console.log("received mode")
+            setGameMode(mode);
+        });
+    });
+
     const checkGameMode = (mode: string) => {
         if (gameMode == mode) {
             return true;
@@ -45,7 +56,7 @@ function Room(props: any) {
     }
 
     const startGame = () => {
-        setGameMode(GAME_MODE_DRAW);
+        socket.emit('start_game', room, GAME_MODE_WRITE)
     }
 
     // useEffect(() => {
@@ -71,7 +82,7 @@ function Room(props: any) {
     return (
         <div>
             <h4>{room}</h4>
-            {checkGameMode(GAME_MODE_WRITE) &&
+            {checkGameMode(GAME_MODE_LOBBY) &&
                 <div>
                     <div>
                         {users.map((user: any, key: any) => {
@@ -83,6 +94,11 @@ function Room(props: any) {
                         Start</button>
                 </div>
             }
+            {checkGameMode(GAME_MODE_WRITE) &&
+                <div>
+                    <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Sentence you want your friends to guess..." onChange={(e) => setPhrase(e.target.value)} />
+                </div>
+            }
             {checkGameMode(GAME_MODE_DRAW) &&
                 <div>
                     <DrawPanel></DrawPanel>
@@ -90,7 +106,7 @@ function Room(props: any) {
             }
             {checkGameMode(GAME_MODE_GUESS) &&
                 <div>
-                    <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Sentence you want your friends to guess..." onChange={(e) => setPhrase(e.target.value)} />
+                    <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Sentence you want your friends to guess..." onChange={(e) => setGuess(e.target.value)} />
                 </div>
             }
             {/* <div>
