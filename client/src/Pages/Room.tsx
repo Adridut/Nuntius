@@ -1,6 +1,7 @@
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'react'
 import DrawPanel from '../Components/DrawPanel'
+import UserList from '../Components/UserList'
 
 
 
@@ -80,33 +81,40 @@ function Room(props: any) {
 
 
     return (
-        <div>
-            <h4>{room}</h4>
+        <div className="tw-h-5/6">
+            <h4 className="tw-flex tw-mt-5 tw-ml-5">{"Room: " + room}</h4>
             {checkGameMode(GAME_MODE_LOBBY) &&
-                <div>
-                    <div>
-                        {users.map((user: any, key: any) => {
-                            return <div>{user.username}</div>
-                        })}
-                    </div>
+                <div className="tw-h-5/6">
+                    <UserList userName={userName} users={users}/>
                     <button onClick={startGame}
-                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none">
+                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none tw-mt-8">
                         Start</button>
+
                 </div>
             }
             {checkGameMode(GAME_MODE_WRITE) &&
                 <div>
                     <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Sentence you want your friends to guess..." onChange={(e) => setPhrase(e.target.value)} />
+                    <button onClick={startGame}
+                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none tw-mt-5">
+                        Submit</button>
                 </div>
             }
             {checkGameMode(GAME_MODE_DRAW) &&
                 <div>
+                    <div>Phrase to guess</div>
                     <DrawPanel></DrawPanel>
+                    <button onClick={startGame}
+                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none tw-mt-5">
+                        Submit</button>
                 </div>
             }
             {checkGameMode(GAME_MODE_GUESS) &&
                 <div>
-                    <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Sentence you want your friends to guess..." onChange={(e) => setGuess(e.target.value)} />
+                    <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Guess what the drawing represents..." onChange={(e) => setGuess(e.target.value)} />
+                    <button onClick={startGame}
+                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none tw-mt-5">
+                        Submit</button>
                 </div>
             }
             {/* <div>

@@ -1,6 +1,4 @@
 
-
-
 function Modal({title, content, displayModal}: any) {
     return (
         <div className="tw-w-1/4 tw-h-2/3 border tw-bg-white shadow shadow-large tw-fixed">
