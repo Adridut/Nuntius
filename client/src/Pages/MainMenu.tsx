@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Modal from '../Components/Modal'
+import CustomButton from '../Components/CustomButton'
+
 
 
 function MainMenu() {
@@ -25,15 +27,15 @@ function MainMenu() {
     return (<div className="tw-h-5/6 tw-flex tw-justify-center tw-items-center">
         <div className="tw-flex tw-items-center">
             <div>
-                <button onClick={displayRules} className="tw-text-blue-500 tw-border-blue-500 hover:tw-bg-blue-500 hover:tw-text-white focus:tw-outline-none">Rules</button>
+                <CustomButton text="Rules" color="blue" onClick={displayRules} />
             </div>
             <div className="tw-mx-20">
                 <Link to="/login" className="tw-bg-none">
-                    <button className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white btn-large focus:tw-outline-none">Play</button>
+                    <CustomButton text="Play" color="green" custom="btn-large" />
                 </Link>
             </div>
             <div>
-                <button onClick={displayAbout} className="tw-text-red-500 tw-border-red-500 hover:tw-bg-red-500 hover:tw-text-white focus:tw-outline-none">About</button>
+                <CustomButton text="About" color="red" onClick={displayAbout} />
             </div>
         </div>
         {(showRules || showAbout) && <Modal title={showRules ? "Rules" : "About"} content={showRules ? "Some rules..." : "Made with ❤️ by Adrien Dutfoy"} displayModal={closeModal}></Modal>}

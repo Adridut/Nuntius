@@ -2,6 +2,7 @@ import { io } from 'socket.io-client'
 import { useEffect, useState } from 'react'
 import DrawPanel from '../Components/DrawPanel'
 import UserList from '../Components/UserList'
+import CustomButton from '../Components/CustomButton'
 
 
 
@@ -86,35 +87,27 @@ function Room(props: any) {
             {checkGameMode(GAME_MODE_LOBBY) &&
                 <div className="tw-h-5/6">
                     <UserList userName={userName} users={users}/>
-                    <button onClick={startGame}
-                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none tw-mt-8">
-                        Start</button>
-
+                    <CustomButton text="Start" color="green" onClick={startGame} custom="tw-mt-5"/>
                 </div>
             }
             {checkGameMode(GAME_MODE_WRITE) &&
                 <div>
                     <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Sentence you want your friends to guess..." onChange={(e) => setPhrase(e.target.value)} />
-                    <button onClick={startGame}
-                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none tw-mt-5">
-                        Submit</button>
+                    <CustomButton text="Submit" color="green" onClick={startGame} custom="tw-mt-5"/>
+
                 </div>
             }
             {checkGameMode(GAME_MODE_DRAW) &&
                 <div>
                     <div>Phrase to guess</div>
                     <DrawPanel></DrawPanel>
-                    <button onClick={startGame}
-                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none tw-mt-5">
-                        Submit</button>
+                    <CustomButton text="Submit" color="green" onClick={startGame} custom="tw-mt-5"/>
                 </div>
             }
             {checkGameMode(GAME_MODE_GUESS) &&
                 <div>
                     <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Guess what the drawing represents..." onChange={(e) => setGuess(e.target.value)} />
-                    <button onClick={startGame}
-                        className="tw-text-green-500 tw-border-green-500 hover:tw-bg-green-500 hover:tw-text-white focus:tw-outline-none tw-mt-5">
-                        Submit</button>
+                    <CustomButton text="Submit" color="green" onClick={startGame} custom="tw-mt-5"/>
                 </div>
             }
             {/* <div>

@@ -1,5 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import CustomButton from '../Components/CustomButton'
+
 
 
 
@@ -18,8 +20,8 @@ function Login(this: any) {
                             <input className="focus:tw-border-blue-500 tw-mr-2" type="text" placeholder="Name..." onChange={(e) => setUserName(e.target.value)} />
                             <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Room..." onChange={(e) => setRoom(e.target.value)} />
                         </div>
-                        <Link className="tw-bg-none" to={{ pathname: "/room", search: "?id="+room, state: { userName: userName}}}>
-                            <button className="tw-border-green-500 tw-text-green-500 hover:tw-bg-green-500 hover:tw-text-white tw-m-4 tw-mb-8">Join Room</button>
+                        <Link className="tw-bg-none" to={{ pathname: "/room", search: "?id=" + room, state: { userName: userName } }}>
+                            <CustomButton text="Join Room" color="green" custom="tw-m-5 tw-mb-8" />
                         </Link>
                     </div>
                 </div>
