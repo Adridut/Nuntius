@@ -1,16 +1,13 @@
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'react'
-import DrawPanel from '../Components/DrawPanel'
-import UserList from '../Components/UserList'
+import Lobby from '../Components/Lobby'
+import WritingPage from '../Components/WritingPage'
+import DrawingPage from '../Components/DrawingPage'
+import GuessingPage from '../Components/GuessingPage'
 import CustomButton from '../Components/CustomButton'
-
-
 
 let socket: any;
 const CONNECTION_PORT = 'localhost:3001/'
-
-
-
 
 function Room(props: any) {
 
@@ -84,31 +81,19 @@ function Room(props: any) {
     return (
         <div className="tw-h-5/6">
             <h4 className="tw-flex tw-mt-5 tw-ml-5">{"Room: " + room}</h4>
-            {checkGameMode(GAME_MODE_LOBBY) &&
-                <div className="tw-h-5/6">
-                    <UserList userName={userName} users={users}/>
-                    <CustomButton text="Start" color="green" onClick={startGame} custom="tw-mt-5"/>
-                </div>
-            }
             {checkGameMode(GAME_MODE_WRITE) &&
-                <div>
-                    <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Sentence you want your friends to guess..." onChange={(e) => setPhrase(e.target.value)} />
-                    <CustomButton text="Submit" color="green" onClick={startGame} custom="tw-mt-5"/>
-
-                </div>
+                <WritingPage setPhrase={setPhrase} />
             }
             {checkGameMode(GAME_MODE_DRAW) &&
-                <div>
-                    <div>Phrase to guess</div>
-                    <DrawPanel></DrawPanel>
-                    <CustomButton text="Submit" color="green" onClick={startGame} custom="tw-mt-5"/>
-                </div>
+                <DrawingPage />
             }
             {checkGameMode(GAME_MODE_GUESS) &&
-                <div>
-                    <input className="focus:tw-border-red-500 tw-ml-2" type="text" placeholder="Guess what the drawing represents..." onChange={(e) => setGuess(e.target.value)} />
-                    <CustomButton text="Submit" color="green" onClick={startGame} custom="tw-mt-5"/>
-                </div>
+                <GuessingPage setGuess={setGuess} />
+            }
+            {checkGameMode(GAME_MODE_LOBBY) ?
+                <Lobby startGame={startGame} userName={userName} users={users} />
+                :
+                <CustomButton text="Submit" color="green" custom="tw-mt-5" />
             }
             {/* <div>
                 {messages.map((value, key) => {
