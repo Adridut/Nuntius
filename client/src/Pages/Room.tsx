@@ -54,6 +54,10 @@ function Room(props: any) {
         }
     }
 
+    const setReady = () => {
+        socket.emit("set_ready")
+    }
+
     const startGame = () => {
         socket.emit('start_game', room, GAME_MODE_WRITE)
     }
@@ -91,7 +95,7 @@ function Room(props: any) {
                 <GuessingPage setGuess={setGuess} />
             }
             {checkGameMode(GAME_MODE_LOBBY) ?
-                <Lobby startGame={startGame} userName={userName} users={users} />
+                <Lobby startGame={setReady} userName={userName} users={users} />
                 :
                 <CustomButton text="Submit" color="green" custom="tw-mt-5" />
             }

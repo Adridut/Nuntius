@@ -6,7 +6,8 @@ const {
     userJoin,
     getCurrentUser,
     userLeave,
-    getRoomUsers
+    getRoomUsers,
+    setReady,
 } = require('./users');
 const {
     startGame,
@@ -35,6 +36,15 @@ io.on('connection', (socket) => {
             users: getRoomUsers(user.room)
         });
     });
+
+    socket.on("set_ready", () => {
+        const user = getCurrentUser(socket.id);
+        setReady(user);
+        console.log(user.username+" is ready "+ user.ready)
+        io.to(user.room).emit('roomUsers', {
+            room: user.room,
+            users: getRoomUsers(user.room)
+        });    });
 
     socket.on("start_game", (room, mode) => {
         const game = startGame(room, mode);
