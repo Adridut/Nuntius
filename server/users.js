@@ -39,5 +39,5 @@ module.exports = {
   getCurrentUser,
   userLeave,
   getRoomUsers,
-  setReady
+  setReady,
 };

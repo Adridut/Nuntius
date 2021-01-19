@@ -40,15 +40,15 @@ io.on('connection', (socket) => {
     socket.on("set_ready", () => {
         const user = getCurrentUser(socket.id);
         setReady(user);
-        console.log(user.username+" is ready "+ user.ready)
+        console.log(user.username + " is ready " + user.ready)
         io.to(user.room).emit('roomUsers', {
-            room: user.room,
-            users: getRoomUsers(user.room)
-        });    });
+            users: getRoomUsers(user.room),
+        });
+    });
 
     socket.on("start_game", (room, mode) => {
         const game = startGame(room, mode);
-        console.log("Game started with mode: " +game.mode);
+        console.log("Game started with mode: " + game.mode);
         io.to(room).emit("send_game_mode", game.mode);
     });
 

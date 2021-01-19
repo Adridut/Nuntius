@@ -24,6 +24,8 @@ function Room(props: any) {
     const [gameMode, setGameMode] = useState(GAME_MODE_LOBBY)
     const [guess, setGuess] = useState("");
     const [phrase, setPhrase] = useState("");
+    const [allUsersReady, setAllUsersReady] = useState(false);
+
 
     const userName = props.location.state.userName;
     const room = props.location.search.split("?id=")[1];
@@ -34,8 +36,9 @@ function Room(props: any) {
     }, [CONNECTION_PORT]);
 
     useEffect(() => {
-        socket.on('roomUsers', ({ room, users }: any) => {
+        socket.on('roomUsers', ({ users }: any) => {
             setUsers(users);
+            setAllUsersReady(checkUsersReady(users));
         });
     });
 
@@ -47,11 +50,20 @@ function Room(props: any) {
     });
 
     const checkGameMode = (mode: string) => {
-        if (gameMode == mode) {
+        if (gameMode === mode) {
             return true;
         } else {
             return false;
         }
+    }
+
+    const checkUsersReady = (users: any) => {
+        for (let i = 0; i < users.length; i++) {
+            if (!users[i].ready) {
+                return false;
+            }
+        }
+        return true;
     }
 
     const setReady = () => {
@@ -95,7 +107,7 @@ function Room(props: any) {
                 <GuessingPage setGuess={setGuess} />
             }
             {checkGameMode(GAME_MODE_LOBBY) ?
-                <Lobby startGame={setReady} userName={userName} users={users} />
+                <Lobby startGame={startGame} userName={userName} users={users} setReady={setReady} allUsersReady={allUsersReady} />
                 :
                 <CustomButton text="Submit" color="green" custom="tw-mt-5" />
             }
