@@ -1,9 +1,5 @@
 import { io } from 'socket.io-client'
 import { useEffect, useState } from 'react'
-import Lobby from '../Components/Lobby'
-import WritingPage from '../Components/WritingPage'
-import DrawingPage from '../Components/DrawingPage'
-import GuessingPage from '../Components/GuessingPage'
 import CustomButton from '../Components/CustomButton'
 import UserList from '../Components/UserList'
 
@@ -12,20 +8,12 @@ const CONNECTION_PORT = 'localhost:3001/'
 
 function Room(props: any) {
 
-    const GAME_MODE_WRITE = "GAME_MODE_WRITE";
-    const GAME_MODE_DRAW = "GAME_MODE_DRAW";
-    const GAME_MODE_GUESS = "GAME_MODE_GUESS";
-    const GAME_MODE_LOBBY = "GAME_MODE_LOBBY";
-    const GAME_MODE_DONE = "GAME_MODE_DONE";
 
 
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([{ author: "", message: "" }]);
     const [users, setUsers] = useState([]);
-    const [gameMode, setGameMode] = useState(GAME_MODE_LOBBY)
-    const [guess, setGuess] = useState("");
-    const [phrase, setPhrase] = useState("");
-    const [allUsersReady, setAllUsersReady] = useState(false);
+
 
 
     const userName = props.location.state.userName;
@@ -39,45 +27,8 @@ function Room(props: any) {
     useEffect(() => {
         socket.on('roomUsers', ({ users }: any) => {
             setUsers(users);
-            setAllUsersReady(checkUsersReady(users));
         });
     });
-
-    useEffect(() => {
-        socket.on('send_game_mode', (mode: any) => {
-            console.log("received mode " + mode)
-            setGameMode(mode);
-        });
-    });
-
-    const checkGameMode = (mode: string) => {
-        if (gameMode === mode) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    const checkUsersReady = (users: any) => {
-        for (let i = 0; i < users.length; i++) {
-            if (!users[i].ready) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    const setReady = () => {
-        socket.emit("set_ready")
-    }
-
-    const startGame = () => {
-        socket.emit('start_game', room)
-    }
-
-    const submit = () => {
-        socket.emit('submit')
-    }
 
     useEffect(() => {
         socket.on("receive_message", (content: any) => {
@@ -107,20 +58,6 @@ function Room(props: any) {
                     <h4 className="tw-mt-5 tw-ml-5">{"Room: " + room}</h4>
                     <UserList userName={userName} users={users}></UserList>
                 </div>
-                {/* {checkGameMode(GAME_MODE_WRITE) &&
-                <WritingPage setPhrase={setPhrase} />
-            }
-            {checkGameMode(GAME_MODE_DRAW) &&
-                <DrawingPage />
-            }
-            {checkGameMode(GAME_MODE_GUESS) &&
-                <GuessingPage setGuess={setGuess} />
-            }
-            {checkGameMode(GAME_MODE_LOBBY) ?
-                <Lobby startGame={startGame} userName={userName} users={users} setReady={setReady} allUsersReady={allUsersReady} />
-                :
-                <CustomButton text="Submit" color="green" custom="tw-mt-5" />
-            } */}
                 <div className="tw-w-full tw-flex tw-justify-center">
                     <div>
                         <div className="tw-h-2/3 tw-overflow-y-auto tw-w-full">
