@@ -5,6 +5,7 @@ import WritingPage from '../Components/WritingPage'
 import DrawingPage from '../Components/DrawingPage'
 import GuessingPage from '../Components/GuessingPage'
 import CustomButton from '../Components/CustomButton'
+import UserList from '../Components/UserList'
 
 let socket: any;
 const CONNECTION_PORT = 'localhost:3001/'
@@ -101,8 +102,12 @@ function Room(props: any) {
 
     return (
         <div className="tw-h-5/6">
-            <h4 className="tw-flex tw-mt-5 tw-ml-5">{"Room: " + room}</h4>
-            {/* {checkGameMode(GAME_MODE_WRITE) &&
+            <div className="tw-flex tw-w-full tw-h-full">
+                <div className="tw-absolute">
+                    <h4 className="tw-mt-5 tw-ml-5">{"Room: " + room}</h4>
+                    <UserList userName={userName} users={users}></UserList>
+                </div>
+                {/* {checkGameMode(GAME_MODE_WRITE) &&
                 <WritingPage setPhrase={setPhrase} />
             }
             {checkGameMode(GAME_MODE_DRAW) &&
@@ -116,15 +121,21 @@ function Room(props: any) {
                 :
                 <CustomButton text="Submit" color="green" custom="tw-mt-5" />
             } */}
-            <div className="tw-h-2/3 tw-overflow-y-auto">
-                {messages.map((value, key) => {
-                    return <div>{value.author} {value.message}</div>
-                })}
-            </div>
-            <div className="tw-absolute tw-bottom-10 tw-right-1/2">
-                <div className="tw-relative tw--right-1/2 tw-flex">
-                    <input  className="tw-h-11" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message}></input>
-                    <button onClick={sendMessage}>Send</button>
+                <div className="tw-w-full tw-flex tw-justify-center">
+                    <div>
+                        <div className="tw-h-2/3 tw-overflow-y-auto tw-w-full">
+                            <h4 className="tw-my-5">Messages: </h4>
+                            {messages.map((value, key) => {
+                                return <div>{value.author} {value.message}</div>
+                            })}
+                        </div>
+                        <div className="tw-absolute tw-bottom-10 tw-right-1/2">
+                            <div className="tw-relative tw--right-1/2 tw-flex">
+                                <input className="tw-h-11" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message}></input>
+                                <button onClick={sendMessage}>Send</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
