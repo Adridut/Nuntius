@@ -131,8 +131,8 @@ function Room(props: any) {
                         </div>
                         <div className="tw-absolute tw-bottom-10 tw-right-1/2">
                             <div className="tw-relative tw--right-1/2 tw-flex">
-                                <input className="tw-h-11" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message}></input>
-                                <button onClick={sendMessage}>Send</button>
+                                <input className="tw-h-11 tw-mr-1 focus:tw-border-indigo-500" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message}></input>
+                                <CustomButton text="Send" color="indigo" onClick={sendMessage} />
                             </div>
                         </div>
                     </div>
