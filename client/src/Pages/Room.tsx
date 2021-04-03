@@ -18,8 +18,8 @@ function Room(props: any) {
     const GAME_MODE_DONE = "GAME_MODE_DONE";
 
 
-    // const [message, setMessage] = useState('');
-    // const [messages, setMessages] = useState([{ author: "", message: "" }]);
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([{ author: "", message: "" }]);
     const [users, setUsers] = useState([]);
     const [gameMode, setGameMode] = useState(GAME_MODE_LOBBY)
     const [guess, setGuess] = useState("");
@@ -44,7 +44,7 @@ function Room(props: any) {
 
     useEffect(() => {
         socket.on('send_game_mode', (mode: any) => {
-            console.log("received mode")
+            console.log("received mode " + mode)
             setGameMode(mode);
         });
     });
@@ -71,33 +71,38 @@ function Room(props: any) {
     }
 
     const startGame = () => {
-        socket.emit('start_game', room, GAME_MODE_WRITE)
+        socket.emit('start_game', room)
     }
 
-    // useEffect(() => {
-    //     socket.on("receive_message", (content: any) => {
-    //         setMessages([...messages, content])
-    //     });
-    // });
+    const submit = () => {
+        socket.emit('submit')
+    }
 
-    // const sendMessage = () => {
-    //     let messageInfo = {
-    //         room: room,
-    //         content: {
-    //             author: userName,
-    //             message: message,
-    //         }
-    //     }
+    useEffect(() => {
+        socket.on("receive_message", (content: any) => {
+            setMessages([...messages, content])
+        });
+    });
 
-    //     socket.emit("send_message", messageInfo)
-    //     setMessages([...messages, messageInfo.content])
-    // }
+    const sendMessage = () => {
+        let messageInfo = {
+            room: room,
+            content: {
+                author: userName,
+                message: message,
+            }
+        }
+
+        socket.emit("send_message", messageInfo)
+        setMessages([...messages, messageInfo.content])
+        setMessage("");
+    }
 
 
     return (
         <div className="tw-h-5/6">
             <h4 className="tw-flex tw-mt-5 tw-ml-5">{"Room: " + room}</h4>
-            {checkGameMode(GAME_MODE_WRITE) &&
+            {/* {checkGameMode(GAME_MODE_WRITE) &&
                 <WritingPage setPhrase={setPhrase} />
             }
             {checkGameMode(GAME_MODE_DRAW) &&
@@ -110,16 +115,18 @@ function Room(props: any) {
                 <Lobby startGame={startGame} userName={userName} users={users} setReady={setReady} allUsersReady={allUsersReady} />
                 :
                 <CustomButton text="Submit" color="green" custom="tw-mt-5" />
-            }
-            {/* <div>
+            } */}
+            <div className="tw-h-2/3 tw-overflow-y-auto">
                 {messages.map((value, key) => {
                     return <div>{value.author} {value.message}</div>
                 })}
             </div>
-            <div>
-                <input type="text" placeholder="Message" onChange={(e) => setMessage(e.target.value)}></input>
-                <button onClick={sendMessage}>Send</button>
-            </div> */}
+            <div className="tw-absolute tw-bottom-10 tw-right-1/2">
+                <div className="tw-relative tw--right-1/2 tw-flex">
+                    <input  className="tw-h-11" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message}></input>
+                    <button onClick={sendMessage}>Send</button>
+                </div>
+            </div>
         </div>
     )
 

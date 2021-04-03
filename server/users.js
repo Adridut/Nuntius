@@ -1,9 +1,10 @@
 const users = [];
 let ready = false;
+let phrase = "";
 
 // Join user to chat
 function userJoin(id, username, room) {
-  const user = { id, username, room, ready };
+  const user = { id, username, room, ready, phrase };
 
   users.push(user);
 
@@ -17,6 +18,11 @@ function getCurrentUser(id) {
 
 function setReady(user) {
   user.ready = !user.ready;
+  return users;
+}
+
+function setPhrase(user, phrase) {
+  user.phrase =  phrase;
   return users;
 }
 
@@ -40,4 +46,5 @@ module.exports = {
   userLeave,
   getRoomUsers,
   setReady,
+  setPhrase
 };

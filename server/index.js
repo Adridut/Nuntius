@@ -8,6 +8,7 @@ const {
     userLeave,
     getRoomUsers,
     setReady,
+    setPhrase
 } = require('./users');
 const {
     startGame,
@@ -46,9 +47,9 @@ io.on('connection', (socket) => {
         });
     });
 
-    socket.on("start_game", (room, mode) => {
-        const game = startGame(room, mode);
-        console.log("Game started with mode: " + game.mode);
+    socket.on("start_game", (room) => {
+        const game = startGame(room, "GAME_MODE_WRITE");
+        console.log("Game started with mode");
         io.to(room).emit("send_game_mode", game.mode);
     });
 
