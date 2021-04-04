@@ -2,22 +2,22 @@ import { io } from 'socket.io-client'
 import { useEffect, useState } from 'react'
 import CustomButton from '../Components/CustomButton'
 import UserList from '../Components/UserList'
+import Message from '../Components/Message'
+
 
 let socket: any;
 const CONNECTION_PORT = 'localhost:3001/'
 
 function Room(props: any) {
 
-
-
-    const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([{ author: "", message: "" }]);
-    const [users, setUsers] = useState([]);
-
-
-
     const userName = props.location.state.userName;
     const room = props.location.search.split("?id=")[1];
+
+    
+    const [message, setMessage] = useState('');
+    const [messages, setMessages] = useState([{ author: "Nuntius", message: "Welcome to room " +room}]);
+    const [users, setUsers] = useState([]);
+
 
     useEffect(() => {
         socket = io(CONNECTION_PORT);
@@ -62,13 +62,13 @@ function Room(props: any) {
                     <div>
                         <div className="tw-h-2/3 tw-overflow-y-auto tw-w-full">
                             <h4 className="tw-my-5">Messages: </h4>
-                            {messages.map((value, key) => {
-                                return <div>{value.author} {value.message}</div>
+                            {messages.map((value) => {
+                                return <Message key="{value}" content={value.message} author={value.author} userName={userName}></Message>
                             })}
                         </div>
                         <div className="tw-absolute tw-bottom-10 tw-right-1/2">
                             <div className="tw-relative tw--right-1/2 tw-flex">
-                                <input className="tw-h-11 tw-mr-1 focus:tw-border-indigo-500" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message}></input>
+                                <input className="tw-mr-1 focus:tw-border-indigo-500 tw-shadow" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message}></input>
                                 <CustomButton text="Send" color="indigo" onClick={sendMessage} />
                             </div>
                         </div>
