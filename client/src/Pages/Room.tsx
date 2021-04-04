@@ -25,8 +25,9 @@ function Room(props: any) {
     }, [CONNECTION_PORT]);
 
     useEffect(() => {
-        socket.on('roomUsers', ({ users }: any) => {
+        socket.on('roomUsers', ({ users, user }: any) => {
             setUsers(users);
+            setMessages([...messages, { author: "Nuntius", message: user + " joined the room" }])
         });
     });
 

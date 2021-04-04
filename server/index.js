@@ -34,7 +34,8 @@ io.on('connection', (socket) => {
         console.log(userName + ' joined room: ' + room);
         io.to(user.room).emit('roomUsers', {
             room: user.room,
-            users: getRoomUsers(user.room)
+            users: getRoomUsers(user.room),
+            user: userName
         });
     });
 
