@@ -4,16 +4,11 @@ const app = express();
 const cors = require('cors');
 const {
     userJoin,
-    getCurrentUser,
     userLeave,
     getRoomUsers,
-    setReady,
-    setPhrase
+    getCurrentUser
 } = require('./users');
-const {
-    startGame,
-    changeGameMode,
-} = require('./games');
+
 
 app.use(cors());
 app.use(express.json())
@@ -32,26 +27,11 @@ io.on('connection', (socket) => {
         const user = userJoin(socket.id, userName, room);
         socket.join(room);
         console.log(userName + ' joined room: ' + room);
-        io.to(user.room).emit('roomUsers', {
+        io.to(user.room).emit('new_user', {
             room: user.room,
             users: getRoomUsers(user.room),
-            user: userName
+            user: user.username
         });
-    });
-
-    socket.on("set_ready", () => {
-        const user = getCurrentUser(socket.id);
-        setReady(user);
-        console.log(user.username + " is ready " + user.ready)
-        io.to(user.room).emit('roomUsers', {
-            users: getRoomUsers(user.room),
-        });
-    });
-
-    socket.on("start_game", (room) => {
-        const game = startGame(room, "GAME_MODE_WRITE");
-        console.log("Game started with mode");
-        io.to(room).emit("send_game_mode", game.mode);
     });
 
     socket.on("send_message", (messageInfo) => {
@@ -59,10 +39,12 @@ io.on('connection', (socket) => {
     });
 
     socket.on('disconnect', () => {
-        const user = userLeave(socket.id);
-        io.to(user.room).emit('roomUsers', {
+        const user = getCurrentUser(socket.id)
+        userLeave(socket.id);
+        io.to(user.room).emit('user_left', {
             room: user.room,
-            users: getRoomUsers(user.room)
+            users: getRoomUsers(user.room),
+            user: user.username
         });
     });
 });

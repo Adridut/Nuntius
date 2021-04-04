@@ -1,10 +1,8 @@
 const users = [];
-let ready = false;
-let phrase = "";
 
 // Join user to chat
 function userJoin(id, username, room) {
-  const user = { id, username, room, ready, phrase };
+  const user = { id, username, room };
 
   users.push(user);
 
@@ -14,16 +12,6 @@ function userJoin(id, username, room) {
 // Get current user
 function getCurrentUser(id) {
   return users.find(user => user.id === id);
-}
-
-function setReady(user) {
-  user.ready = !user.ready;
-  return users;
-}
-
-function setPhrase(user, phrase) {
-  user.phrase =  phrase;
-  return users;
 }
 
 // User leaves chat
@@ -45,6 +33,4 @@ module.exports = {
   getCurrentUser,
   userLeave,
   getRoomUsers,
-  setReady,
-  setPhrase
 };

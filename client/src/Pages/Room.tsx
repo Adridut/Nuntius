@@ -25,9 +25,16 @@ function Room(props: any) {
     }, [CONNECTION_PORT]);
 
     useEffect(() => {
-        socket.on('roomUsers', ({ users, user }: any) => {
+        socket.on('new_user', ({ users, user }: any) => {
             setUsers(users);
             setMessages([...messages, { author: "Nuntius", message: user + " joined the room" }])
+        });
+    });
+
+    useEffect(() => {
+        socket.on('user_left', ({ users, user }: any) => {
+            setUsers(users);
+            setMessages([...messages, { author: "Nuntius", message: user + " left the room" }])
         });
     });
 
