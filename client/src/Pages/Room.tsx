@@ -13,9 +13,9 @@ function Room(props: any) {
     const userName = props.location.state.userName;
     const room = props.location.search.split("?id=")[1];
 
-    
+
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([{ author: "Nuntius", message: "Welcome to room " +room}]);
+    const [messages, setMessages] = useState([{ author: "Nuntius", message: "Welcome to room " + room }]);
     const [users, setUsers] = useState([]);
 
 
@@ -59,18 +59,20 @@ function Room(props: any) {
                     <UserList userName={userName} users={users}></UserList>
                 </div>
                 <div className="tw-w-full tw-flex tw-justify-center">
-                    <div>
-                        <div className="tw-h-2/3 tw-overflow-y-auto tw-w-full">
-                            <h4 className="tw-my-5">Messages: </h4>
-                            {messages.map((value) => {
-                                return <Message key="{value}" content={value.message} author={value.author} userName={userName}></Message>
-                            })}
-                        </div>
-                        <div className="tw-absolute tw-bottom-10 tw-right-1/2">
-                            <div className="tw-relative tw--right-1/2 tw-flex">
-                                <input className="tw-mr-1 focus:tw-border-indigo-500 tw-shadow" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message}></input>
-                                <CustomButton text="Send" color="indigo" onClick={sendMessage} />
+                    <div className="tw-w-3/5 tw-h-2/3 tw-w-full">
+                        <h4 className="tw-my-5 tw-flex tw-justify-center">Messages: </h4>
+                        <div className="tw-overflow-y-auto tw-h-full tw-flex tw-justify-center">
+                            <div>
+                                {messages.map((value) => {
+                                    return <Message key="{value}" content={value.message} author={value.author} userName={userName}></Message>
+                                })}
                             </div>
+                        </div>
+                    </div>
+                    <div className="tw-absolute tw-bottom-10 tw-right-1/2">
+                        <div className="tw-relative tw--right-1/2 tw-flex">
+                            <input className="tw-mr-1 focus:tw-border-indigo-500 tw-shadow" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message}></input>
+                            <CustomButton text="Send" color="indigo" onClick={sendMessage} />
                         </div>
                     </div>
                 </div>
