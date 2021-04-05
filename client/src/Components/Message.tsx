@@ -10,9 +10,12 @@ function Message({ content, author, userName }: any) {
             </div>
     } else {
 
-        message = <div className="tw-bg-red-500 tw-my-2 tw-rounded tw-p-2" style={{ width: "fit-content", height: "fit-content" }}>
-            <div className="tw-text-white">{content}</div>
-        </div>
+        message =
+            <div className="tw-flex tw-justify-center">
+                <div className="tw-bg-red-500 tw-my-2 tw-rounded tw-p-2" style={{ width: "fit-content", height: "fit-content" }}>
+                    <div className="tw-text-white">{content}</div>
+                </div>
+            </div>
     }
     return (
         message
