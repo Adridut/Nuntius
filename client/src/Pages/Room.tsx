@@ -15,7 +15,7 @@ function Room(props: any) {
 
 
     const [message, setMessage] = useState('');
-    const [messages, setMessages] = useState([{ author: "Nuntius", message: "Welcome to room " + room }]);
+    const [messages, setMessages] = useState([{ author: "", message: "Welcome to room " + room }]);
     const [users, setUsers] = useState([]);
 
 
@@ -27,14 +27,14 @@ function Room(props: any) {
     useEffect(() => {
         socket.on('new_user', ({ users, user }: any) => {
             setUsers(users);
-            setMessages([...messages, { author: "Nuntius", message: user + " joined the room" }])
+            setMessages([...messages, { author: "", message: user + " joined the room" }])
         });
     });
 
     useEffect(() => {
         socket.on('user_left', ({ users, user }: any) => {
             setUsers(users);
-            setMessages([...messages, { author: "Nuntius", message: user + " left the room" }])
+            setMessages([...messages, { author: "", message: user + " left the room" }])
         });
     });
 
