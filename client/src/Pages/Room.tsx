@@ -70,7 +70,7 @@ function Room(props: any) {
                     <div className="tw-w-3/5 tw-h-2/3 tw-w-full">
                         <h4 className="tw-my-5 tw-flex tw-justify-center">Messages: </h4>
                         <div className="tw-overflow-y-auto tw-h-full tw-flex tw-justify-center">
-                            <div>
+                            <div className="tw-w-1/2">
                                 {messages.map((value) => {
                                     return <Message key="{value}" content={value.message} author={value.author} userName={userName}></Message>
                                 })}
