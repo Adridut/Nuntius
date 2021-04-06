@@ -62,7 +62,7 @@ function Room(props: any) {
     return (
         <div className="tw-h-5/6">
             <div className="tw-flex tw-w-full tw-h-full">
-                <div className="tw-absolute">
+                <div className="tw-absolute tw-w-2/12">
                     <UserList userName={userName} users={users}></UserList>
                 </div>
                 <div className="tw-w-full tw-flex tw-justify-center">
