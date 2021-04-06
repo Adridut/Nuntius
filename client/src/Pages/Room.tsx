@@ -63,13 +63,12 @@ function Room(props: any) {
         <div className="tw-h-5/6">
             <div className="tw-flex tw-w-full tw-h-full">
                 <div className="tw-absolute">
-                    <h4 className="tw-mt-5 tw-ml-5">{"Room: " + room}</h4>
                     <UserList userName={userName} users={users}></UserList>
                 </div>
                 <div className="tw-w-full tw-flex tw-justify-center">
                     <div className="tw-w-3/5 tw-h-2/3 tw-w-full">
-                        <h4 className="tw-my-5 tw-flex tw-justify-center">Messages: </h4>
-                        <div className="tw-overflow-y-auto tw-flex tw-justify-center" style={{height: "88%"}}>
+                        <h4 className="tw-my-5 tw-flex tw-justify-center">{"Room: " + room}</h4>
+                        <div className="tw-overflow-y-auto tw-flex tw-justify-center" style={{ height: "88%" }}>
                             <div className="tw-w-1/2">
                                 {messages.map((value) => {
                                     return <Message key="{value}" content={value.message} author={value.author} userName={userName}></Message>
