@@ -67,7 +67,9 @@ function Room(props: any) {
                 </div>
                 <div className="tw-w-full tw-flex tw-justify-center">
                     <div className="tw-w-3/5 tw-h-2/3 tw-w-full">
-                        <h4 className="tw-my-5 tw-flex tw-justify-center">{"Room: " + room}</h4>
+                        <div className="tw-w-full tw-flex tw-justify-center">
+                            <h4 className="tw-my-5 tw-flex tw-justify-center tw-break-all tw-w-1/2">{"Room: " + room}</h4>
+                        </div>
                         <div className="tw-overflow-y-auto tw-flex tw-justify-center" style={{ height: "88%" }}>
                             <div className="tw-w-1/2">
                                 {messages.map((value) => {
