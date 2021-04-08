@@ -8,11 +8,7 @@ import Message from '../Components/Message'
 let socket: any;
 const CONNECTION_PORT = 'localhost:3001/'
 
-function Room(props: any) {
-
-    const userName = props.location.state.userName;
-    const room = props.location.search.split("?id=")[1];
-
+function Room({room, userName}: any) {
 
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([{ author: "", message: "Welcome to room " + room }]);
