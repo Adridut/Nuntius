@@ -38,6 +38,15 @@ io.on('connection', (socket) => {
         socket.to(messageInfo.room).emit("receive_message", messageInfo.content)
     });
 
+    socket.on('leave_room', (room, userName) => {
+        userLeave(socket.id);
+        io.to(room).emit('user_left', {
+            room: room,
+            users: getRoomUsers(room),
+            user: userName
+        });
+    })
+
     socket.on('disconnect', () => {
         const user = getCurrentUser(socket.id)
         userLeave(socket.id);

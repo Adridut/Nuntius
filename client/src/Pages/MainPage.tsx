@@ -22,7 +22,7 @@ function MainPage(this: any) {
 
     if (isLoggedIn) {
         return (
-            <Room room={room} userName={userName}></Room>
+            <Room room={room} userName={userName} onChange={handleLogin}></Room>
         )
     } else {
         return (
