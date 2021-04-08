@@ -72,8 +72,8 @@ function Room(props: any) {
                         <div className="tw-w-full tw-flex tw-justify-center">
                             <h4 className="tw-my-5 tw-flex tw-justify-center tw-break-all tw-w-1/2">{"Room: " + props.room}</h4>
                         </div>
-                        <div className="tw-overflow-y-auto tw-flex tw-justify-center" style={{ height: "80%" }}>
-                            <div className="tw-w-1/2">
+                        <div className="tw-flex tw-justify-center" style={{ height: "80%" }}>
+                            <div className="tw-w-1/2 tw-border tw-overflow-y-auto tw-shadow">
                                 {messages.map((value) => {
                                     return <Message key="{value}" content={value.message} author={value.author} userName={props.userName}></Message>
                                 })}

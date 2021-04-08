@@ -4,10 +4,6 @@ import CustomButton from '../Components/CustomButton'
 import Login from './/Login'
 import Room from './/Room'
 
-
-
-
-
 function MainPage(this: any) {
 
     const [isLoggedIn, setIsLoggedIn] = useState(false);

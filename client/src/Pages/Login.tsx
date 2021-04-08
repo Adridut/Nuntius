@@ -2,10 +2,6 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import CustomButton from '../Components/CustomButton'
 
-
-
-
-
 function Login(props: any) {
     const [room, setRoom] = useState('');
     const [userName, setUserName] = useState('');
