@@ -80,8 +80,8 @@ function Room(props: any) {
                         <div className="tw-w-full tw-flex tw-justify-center">
                             <h4 className="tw-my-5 tw-flex tw-justify-center tw-break-all tw-w-1/2">{"Room: " + props.room}</h4>
                         </div>
-                        <div className="tw-flex tw-justify-center" style={{ height: "90%" }}>
-                            <div className="tw-border tw-overflow-y-auto tw-shadow tw-p-1 tw-bg-gray-50" style={{ width: "65%" }}>
+                        <div className="tw-flex tw-justify-center tw-h-5/6 sm:tw-h-full">
+                            <div className="tw-border tw-overflow-y-auto tw-shadow tw-p-1 tw-bg-gray-50 tw-w-5/6">
                                 {messages.map((value) => {
                                     return <Message key="{value}" content={value.message} author={value.author} userName={props.userName}></Message>
                                 })}
@@ -97,7 +97,7 @@ function Room(props: any) {
                             <h6 className="tw-text-red-500 tw-h-6">{errorMessage}</h6>
                         </div>
                         <div className="tw-relative tw--right-1/2 tw-flex tw-justify-center">
-                            <CustomButton text="Leave room" color="red" onClick={handleLogin} />
+                            <CustomButton text="Leave room" color="red" onClick={handleLogin} custom="tw-h-8 tw-flex tw-items-center" />
                         </div>
                     </div>
                 </div>
