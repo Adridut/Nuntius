@@ -34,9 +34,9 @@ function Login(props: any) {
                     <div>
                         <div className="tw-m-4 tw-mt-8">
                             <input className="focus:tw-border-yellow-500" type="text" placeholder="Username..." onChange={(e) => setUserName(e.target.value)} />
-                            <h6 className="tw-text-red-500">{userError}</h6>
+                            <h6 className="tw-text-red-500 tw-h-6">{userError}</h6>
                             <input className="focus:tw-border-red-500 tw-mt-3" type="text" placeholder="Room name..." onChange={(e) => setRoom(e.target.value)} />
-                            <h6 className="tw-text-red-500">{roomError}</h6>
+                            <h6 className="tw-text-red-500 tw-h-6">{roomError}</h6>
                         </div>
                         <div className="tw-flex tw-justify-center tw-items-center">
                             <CustomButton text="Join Room" color="indigo" onClick={handleLogin} />

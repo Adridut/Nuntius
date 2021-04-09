@@ -13,6 +13,8 @@ function Room(props: any) {
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([{ author: "", message: "Welcome to room " + props.room }]);
     const [users, setUsers] = useState([]);
+    const [errorMessage, setErrorMessage] = useState("");
+
 
 
     useEffect(() => {
@@ -41,17 +43,23 @@ function Room(props: any) {
     });
 
     const sendMessage = () => {
-        let messageInfo = {
-            room: props.room,
-            content: {
-                author: props.userName,
-                message: message,
-            }
-        }
 
-        socket.emit("send_message", messageInfo)
-        setMessages([...messages, messageInfo.content])
-        setMessage("");
+        if (!message) {
+            setErrorMessage("Message cannot be empty.")
+        } else {
+            setErrorMessage("")
+            let messageInfo = {
+                room: props.room,
+                content: {
+                    author: props.userName,
+                    message: message,
+                }
+            }
+
+            socket.emit("send_message", messageInfo)
+            setMessages([...messages, messageInfo.content])
+            setMessage("");
+        }
     }
 
     function handleLogin() {
@@ -73,7 +81,7 @@ function Room(props: any) {
                             <h4 className="tw-my-5 tw-flex tw-justify-center tw-break-all tw-w-1/2">{"Room: " + props.room}</h4>
                         </div>
                         <div className="tw-flex tw-justify-center" style={{ height: "80%" }}>
-                            <div className="tw-border tw-overflow-y-auto tw-shadow tw-p-1 tw-bg-gray-50" style={{width: "65%"}}>
+                            <div className="tw-border tw-overflow-y-auto tw-shadow tw-p-1 tw-bg-gray-50" style={{ width: "65%" }}>
                                 {messages.map((value) => {
                                     return <Message key="{value}" content={value.message} author={value.author} userName={props.userName}></Message>
                                 })}
@@ -81,9 +89,12 @@ function Room(props: any) {
                         </div>
                     </div>
                     <div className="tw-absolute tw-bottom-10 tw-right-1/2">
-                        <div className="tw-relative tw--right-1/2 tw-flex">
-                            <input className="tw-mr-1 focus:tw-border-indigo-500 tw-shadow" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message} style={{ width: "30vh" }}></input>
-                            <CustomButton text="Send" color="indigo" onClick={sendMessage} />
+                        <div className="tw-relative tw--right-1/2">
+                            <div className="tw-flex">
+                                <input className="tw-mr-1 focus:tw-border-indigo-500 tw-shadow" type="text" placeholder="Message..." onChange={(e) => setMessage(e.target.value)} value={message} style={{ width: "30vh" }}></input>
+                                <CustomButton text="Send" color="indigo" onClick={sendMessage} />
+                            </div>
+                            <h6 className="tw-text-red-500 tw-h-6">{errorMessage}</h6>
                         </div>
                         <div className="tw-relative tw--right-1/2 tw-flex tw-justify-center tw-mt-5">
                             <CustomButton text="Leave room" color="red" onClick={handleLogin} />
