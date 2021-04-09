@@ -14,7 +14,7 @@ function Room(props: any) {
     const [messages, setMessages] = useState([{ author: "", message: "Welcome to room " + props.room }]);
     const [users, setUsers] = useState([]);
     const [errorMessage, setErrorMessage] = useState("");
-
+    const [usersVisibility, setUsersVisibility] = useState("invisible")
 
 
     useEffect(() => {
@@ -62,6 +62,14 @@ function Room(props: any) {
         }
     }
 
+    const collapse = () => {
+        if (usersVisibility == "visible") {
+            setUsersVisibility("invisible")
+        } else {
+            setUsersVisibility("visible")
+        }
+    }
+
     function handleLogin() {
         // Here, we invoke the callback with the new value
         props.onChange(false, "", "");
@@ -72,13 +80,22 @@ function Room(props: any) {
     return (
         <div className="tw-h-5/6">
             <div className="tw-flex tw-w-full tw-h-full">
-                <div className="tw-absolute tw-w-2/12 tw-overflow-y-auto tw-h-5/6">
-                    <UserList userName={props.userName} users={users}></UserList>
-                </div>
                 <div className="tw-w-full tw-flex tw-justify-center">
                     <div className="tw-w-3/5 tw-h-2/3 tw-w-full">
-                        <div className="tw-w-full tw-flex tw-justify-center">
-                            <h4 className="tw-my-5 tw-flex tw-justify-center tw-break-all tw-w-1/2">{"Room: " + props.room}</h4>
+                        <div className="tw-w-full tw-flex tw-justify-center tw-my-5">
+                            <div>
+                                <CustomButton text=">" color="yellow" onClick={collapse} custom="tw-h-5 tw-w-5 tw-flex tw-items-center tw-justify-center tw-rounded-full" />
+                                <div className={"tw-overflow-y-auto tw-ml-8 tw-absolute tw-p-2 tw-shadow-lg tw-bg-gray-200 tw-" + usersVisibility} style={{maxHeight: "40%"}}>
+                                    <div>Users:</div>
+                                    {users.map((user: any, key: any) => {
+                                        return <div className="tw-mt-2 tw-flex tw-ml-1">
+                                            <div className="tw-mr-1">-</div>
+                                            <div className={(user.username === props.userName) ? "tw-text-indigo-500 tw-break-all" : "tw-text-yellow-500 tw-break-all"}>{user.username}</div>
+                                        </div>
+                                    })}
+                                </div>
+                            </div>
+                            <h4 className="tw-flex tw-justify-center tw-break-all tw-w-1/2">{"Room: " + props.room}</h4>
                         </div>
                         <div className="tw-flex tw-justify-center tw-h-5/6 sm:tw-h-full">
                             <div className="tw-border tw-overflow-y-auto tw-shadow tw-p-1 tw-bg-gray-50 tw-w-5/6">
