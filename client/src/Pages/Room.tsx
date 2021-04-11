@@ -84,8 +84,8 @@ function Room(props: any) {
                     <div className="tw-w-3/5 tw-h-2/3 tw-w-full">
                         <div className="tw-w-full tw-flex tw-justify-center tw-my-5">
                             <div>
-                                <CustomButton text=">" color="yellow" onClick={collapse} custom="tw-h-5 tw-w-5 tw-flex tw-items-center tw-justify-center tw-rounded-full" />
-                                <div className={"tw-overflow-y-auto tw-ml-8 tw-absolute tw-p-2 tw-shadow-lg tw-bg-gray-200 tw-" + usersVisibility} style={{maxHeight: "40%"}}>
+                                <CustomButton text="<>" color="indigo" onClick={collapse} custom="tw-h-5 tw-w-5 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-absolute tw-left-3" />
+                                <div className={"tw-w-4/5 sm:tw-w-1/5 tw-overflow-y-auto tw-left-5 tw-mt-8 tw-absolute tw-p-2 tw-shadow-lg tw-bg-gray-200 tw-" + usersVisibility} style={{height: "40%"}}>
                                     <div>Users:</div>
                                     {users.map((user: any, key: any) => {
                                         return <div className="tw-mt-2 tw-flex tw-ml-1">
