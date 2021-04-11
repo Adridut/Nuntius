@@ -67,7 +67,7 @@ function Room(props: any) {
     }
 
     const collapse = () => {
-        if (usersVisibility == "visible") {
+        if (usersVisibility === "visible") {
             setUsersVisibility("invisible")
         } else {
             setUsersVisibility("visible")
@@ -88,10 +88,10 @@ function Room(props: any) {
                     <div className="tw-w-3/5 tw-h-2/3 tw-w-full">
                         <div className="tw-w-full tw-flex tw-justify-center tw-my-5">
                             <div>
-                                <FontAwesomeIcon icon={faUsers} onClick={collapse} className="tw-h-5 tw-w-5 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-absolute tw-left-3 tw-cursor-pointer hover:tw-text-indigo-500" />
+                                <FontAwesomeIcon size="lg" icon={faUsers} onClick={collapse} className="tw-h-5 tw-w-5 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-absolute tw-left-3 tw-cursor-pointer hover:tw-text-indigo-500" />
                                 <div className={"tw-w-4/5 sm:tw-w-1/5 tw-overflow-y-auto tw-left-5 tw-mt-8 tw-absolute tw-p-2 tw-shadow-lg tw-bg-gray-200 tw-" + usersVisibility} style={{ height: "40%" }}>
                                     <div>Users:</div>
-                                    {users.map((user: any, key: any) => {
+                                    {users.map((user: any, index: any) => {
                                         return <div className="tw-mt-2 tw-flex tw-ml-1">
                                             <div className="tw-mr-1">-</div>
                                             <div className={(user.username === props.userName) ? "tw-text-indigo-500 tw-break-all" : "tw-text-yellow-500 tw-break-all"}>{user.username}</div>
