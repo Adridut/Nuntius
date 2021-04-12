@@ -20,7 +20,6 @@ function Room(props: any) {
     const [errorMessage, setErrorMessage] = useState("");
     const [usersVisibility, setUsersVisibility] = useState("invisible")
 
-
     useEffect(() => {
         socket = io(CONNECTION_PORT);
         socket.emit("join_room", props.room, props.userName);
@@ -88,7 +87,9 @@ function Room(props: any) {
                     <div className="tw-w-3/5 tw-h-2/3 tw-w-full">
                         <div className="tw-w-full tw-flex tw-justify-center tw-my-5">
                             <div>
-                                <FontAwesomeIcon size="lg" icon={faUsers} onClick={collapse} className="tw-h-5 tw-w-5 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-absolute tw-left-3 tw-cursor-pointer hover:tw-text-indigo-500" />
+                                <button onClick={collapse}  className="tw-text-indigo-500 tw-h-10 tw-w-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-absolute tw-left-3 tw-cursor-pointer tw-border tw-border-indigo-500 hover:tw-bg-indigo-500 hover:tw-text-white focus:tw-outline-none tw-outline-none">
+                                    <FontAwesomeIcon size="lg" icon={faUsers}/>
+                                </button>
                                 <div className={"tw-w-4/5 sm:tw-w-1/5 tw-overflow-y-auto tw-left-5 tw-mt-8 tw-absolute tw-p-2 tw-shadow-lg tw-bg-gray-200 tw-" + usersVisibility} style={{ height: "40%" }}>
                                     <div>Users:</div>
                                     {users.map((user: any, index: any) => {
