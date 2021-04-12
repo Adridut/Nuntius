@@ -87,9 +87,9 @@ function Room(props: any) {
                     <div className="tw-w-3/5 tw-h-2/3 tw-w-full">
                         <div className="tw-w-full tw-flex tw-justify-center tw-my-5">
                             <div>
-                                <button onClick={collapse}  className="tw-text-indigo-500 tw-h-10 tw-w-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-absolute tw-left-3 tw-cursor-pointer tw-border tw-border-indigo-500 hover:tw-bg-indigo-500 hover:tw-text-white focus:tw-outline-none tw-outline-none">
-                                    <FontAwesomeIcon size="lg" icon={faUsers}/>
-                                </button>
+                                <CustomButton onClick={collapse} color="yellow" text={<FontAwesomeIcon size="lg" icon={faUsers} />} 
+                                custom="tw-h-10 tw-w-10 tw-flex tw-items-center tw-justify-center tw-rounded-full tw-absolute tw-left-3 tw-cursor-pointer">
+                                </CustomButton>
                                 <div className={"tw-w-4/5 sm:tw-w-1/5 tw-overflow-y-auto tw-left-5 tw-mt-8 tw-absolute tw-p-2 tw-shadow-lg tw-bg-gray-200 tw-" + usersVisibility} style={{ height: "40%" }}>
                                     <div>Users:</div>
                                     {users.map((user: any, index: any) => {
